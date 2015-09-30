@@ -50,25 +50,20 @@
 				<section>
 			<head>
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
-	<script type='text/javascript' src='http://datejs.googlecode.com/files/date.js'></script>
-	<script type='text/javascript' src='./GCalEvents.js'></script>
+  <script type='text/javascript'>
+    function GCalEvents() {
+      alert("If you see this alert, JavaScript is working and ready for some calendar data.");
+    }
+  </script>
 </head>
 <body>
-	<p>Upcoming MSU Digital Humanities Events:</p>
-	<ul id="gcal-events">
-		<li></li>
-	</ul>
-	<script type="text/javascript" charset="utf-8">
-			// url of json data 
-			// here, instead of pointing to the google calendar link that you'll want to use,
-			// I'm pointing to a static file so that this example doesn't break in the future even
-			// if the calendar it was based upon changes.
-			// you'll want to use a link in the form of: 
-			// http://www.google.com/calendar/feeds/your-calendar@gmail.com/public/full?orderby=starttime&sortorder=ascending&max-results=3&futureevents=true&alt=json
-			var calendar_json_url = "http://mikeclaffey.com/sandbox/gcal-embed/example-json-data.js"
-		$(document).ready(GCalEvents(calendar_json_url));
-	</script>
-	
+  <ul id="gcal-events">
+    <li>No events listed</li>
+  </ul>
+
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(GCalEvents());
+  </script>
 </body>
 				</section>
 
