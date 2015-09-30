@@ -45,25 +45,50 @@
 					<center><a class="twitter-timeline" href="https://twitter.com/hashtag/msudh" data-widget-id="646002594347925504" width="520" height="600" data-chrome="nofooter noborders">#msudh Tweets</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></center>
 				</section>
+<head>
 
-				<!-- Example of nested vertical slides -->
-				<section>
-			<head>
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
-  <script type='text/javascript'>
-    function GCalEvents() {
-      alert("If you see this alert, JavaScript is working and ready for some calendar data.");
-    }
-  </script>
-</head>
-<body>
-  <ul id="gcal-events">
-    <li>No events listed</li>
-  </ul>
+	
+	<script type='text/javascript'>
+	
+		function GCalEvents() {
+		
+			// url of json data 
+			// here, instead of pointing to the google calendar link that you'll want to use,
+			// I'm pointing to a static file so that this example doesn't break in the future even
+			// if the calendar it was based upon changes.
+			// you'll want to use a link in the form of: 
+			// http://www.google.com/calendar/feeds/your-calendar@gmail.com/public/full?orderby=starttime&sortorder=ascending&max-results=3&futureevents=true&alt=json
+			var calendar_json_url = "https://www.google.com/calendar/feeds/msu.edu_5r2o0bgeqt6t1jp998p4augar4%40group.calendar.google.com/public/full?orderby=starttime&sortorder=ascending&max-results=3%futureevents=true&alt=json"
+		
+				// Get list of upcoming events formatted in JSON
+				jQuery.getJSON(calendar_json_url, function(data){
+		
+					// Parse and render each event
+					jQuery.each(data.feed.entry, function(i, item){
+						
+						// Render the event
+						jQuery("#gcal-events li").last().after( "<li>" + item.title.$t + "</li>" );
+		
+					});
+				});
+			}
+	</script>
 
-  <script type="text/javascript" charset="utf-8">
-    $(document).ready(GCalEvents());
-  </script>
+</head>
+
+<body>
+
+	<p>The following text should say "No events listed" followed by 3 events:</p>
+
+	<ul id="gcal-events">
+	  <li>No events listed</li>
+	</ul>
+ 
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(GCalEvents());
+	</script>
+	
 </body>
 				</section>
 
