@@ -47,55 +47,51 @@
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></center>
 				</section>
 				<section>
-<style type="text/css">
-#gcf-ticker .gcf-header-block {
-  -webkit-border-bottom-left-radius: 4px;
-  -moz-border-bottom-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  float: left;
-  height: 100%;
-}
-#gcf-ticker .gcf-item-container-block {
-  margin-top: 0.2em;
-  overflow: hidden;
-} 
-#gcf-ticker .gcf-item-block .gcf-item-description {
-  padding-left: 1em;
-  color: #888;
-  font-size: 78%;
-}
-#gcf-ticker .gcf-item-description:before { content: " -- "; color: #aaa; }
-</style>
-<div id="gcf-ticker" style="width: 100%; height: 1.4em;">
-  <div class="gcf-header-block">
-    <div class="gcf-title-block">
-        Updates:
-    </div>
-  </div>
-  <div class="gcf-item-container-block">
-    <div class="gcf-item-block">
-      <div class="gcf-item-header-block">
-        <div class="gcf-item-title-block">
-          (<span class="gcf-item-update-date">20/12</span>)
-          <span class="gcf-item-title">Item Title of Your event</span>
-           <span class="gcf-item-description"></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<script type="text/javascript">
-    $('#gcf-ticker').gCalFlow({
-      calid: 'msu.edu_5r2o0bgeqt6t1jp998p4augar4%40group.calendar.google.com',
-      maxitem: 5,
-      scroll_interval: 5 * 1000,
-      date_formatter: function (date, allday_p) {
-        function pad(n) { return n < 10 ? "0"+n : n; }
-        return pad(date.getMonth()+1) + "/" + pad(date.getDate()) + "/" + date.getFullYear().toString().substr(-2);
-      }
-    });
-</script>
+<head>
 
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+	
+	<script type='text/javascript'>
+	
+		function GCalEvents() {
+		
+			// url of json data 
+			// here, instead of pointing to the google calendar link that you'll want to use,
+			// I'm pointing to a static file so that this example doesn't break in the future even
+			// if the calendar it was based upon changes.
+			// you'll want to use a link in the form of: 
+			// http://www.google.com/calendar/feeds/your-calendar@gmail.com/public/full?orderby=starttime&sortorder=ascending&max-results=3&futureevents=true&alt=json
+			var calendar_json_url = "https://www.google.com/calendar/feeds/msu.edu_5r2o0bgeqt6t1jp998p4augar4%40group.calendar.google.com/public/basic"
+		
+				// Get list of upcoming events formatted in JSON
+				jQuery.getJSON(calendar_json_url, function(data){
+		
+					// Parse and render each event
+					jQuery.each(data.feed.entry, function(i, item){
+						
+						// Render the event
+						jQuery("#gcal-events li").last().after( "<li>" + item.title.$t + "</li>" );
+		
+					});
+				});
+			}
+	</script>
+
+</head>
+
+<body>
+
+	<p>The following text should say "No events listed" followed by 3 events:</p>
+
+	<ul id="gcal-events">
+	  <li>No events listed</li>
+	</ul>
+ 
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(GCalEvents());
+	</script>
+	
+</body>
 				</section>
 				<section>
 					<h2>Point of View</h2>
